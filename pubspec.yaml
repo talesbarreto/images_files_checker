@@ -1,0 +1,15 @@
+name: images_files_checker
+description: A CI tool that checks each image in the project and report missing files or incorrect image resolution.
+version: 0.0.1
+# homepage: https://www.example.com
+
+environment:
+  sdk: '>=2.17.1 <3.0.0'
+
+dependencies:
+  args: ^2.3.1
+  image: ^3.2.0
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0
