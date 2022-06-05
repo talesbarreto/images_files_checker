@@ -1,32 +1,44 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+![example workflow](https://github.com/talesbarreto/images_files_checker/actions/workflows/flutter-ci.yml/badge.svg)
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A CI tool that verifies assets image files in the project.
 
 ## Features
+- Checks if each image has all expected resolutions files.
+- Report wrong image resolution.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## usage
+```bash
+flutter pub run images_files_checker --path assets/images
+```
+| Parameter         | default                    | mandatory | description                  |
+|-------------------|----------------------------|-----------|------------------------------|
+| path              |                            | yes       | assets image files directory |
+| resolutions       | 1.0x,1.5x,2.0x,3.0x,4.0x   | no        | expected resolutions         |
+| supported-formats | jpeg,webp,png,gif,bmp,wbmp | no        | Files that should be checked |
 
-## Getting started
+#### Output example:
+```
+cat.webp
+        - Resolution (61x60) for 2.0x is smaller than 1.5x (80x80)
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+dog.webp
+        - missing file for 1.5x
+        - missing file for 2.0x
+        - missing file for 3.0x
+        - missing file for 4.0x
+```
 
-## Usage
+## Installation
+This is an alpha version. The only way to install it is adding to your `pubspec.yaml`:
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+```yaml
+dev_dependencies:
+  images_files_checker:
+    git:
+      url: git@github.com:talesbarreto/images_files_checker.git
+      ref: main
+```
+## Usage examples
 
 ```dart
 const like = 'sample';
