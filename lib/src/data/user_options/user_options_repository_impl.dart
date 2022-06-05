@@ -1,4 +1,5 @@
 import 'package:args/args.dart';
+import 'package:images_files_checker/src/domain/assets/models/asset_density.dart';
 import 'package:images_files_checker/src/domain/common/result.dart';
 import 'package:images_files_checker/src/domain/repositories/user_options/user_options.dart';
 import 'package:images_files_checker/src/domain/repositories/user_options/user_options_repository.dart';
@@ -42,7 +43,12 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
       final result = argParser.parse(arguments);
       return ResultSuccess(UserOptions(
         imagePath: result["path"],
-        expectedResolutions: result["resolutions"].toLowerCase().split(","),
+        expectedDensities: result["resolutions"]
+            .toLowerCase()
+            .split(",")
+            .map((e) => AssetDensity.fromString(e)) // returns a list of AssetDensity?
+            .whereType<AssetDensity>() // filtering not null values
+            .toList(growable: false),
         supportedFiles: result["supported-formats"].toLowerCase().split(","),
       ));
     } catch (e) {

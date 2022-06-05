@@ -1,4 +1,4 @@
-class ImageResolution {
+class ImageResolution implements Comparable<ImageResolution> {
   final int width;
   final int height;
 
@@ -26,4 +26,9 @@ class ImageResolution {
 
   @override
   int get hashCode => width.hashCode ^ height.hashCode;
+
+  @override
+  int compareTo(ImageResolution other) {
+    return width * height - (other.width * other.height);
+  }
 }

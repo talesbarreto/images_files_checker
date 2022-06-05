@@ -2,4 +2,3 @@
 ///
 /// More dartdocs go here.
 library images_files_checker;
-

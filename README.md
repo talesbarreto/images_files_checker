@@ -1,4 +1,4 @@
-![example workflow](https://github.com/talesbarreto/images_files_checker/actions/workflows/flutter-ci.yml/badge.svg)
+![flutter-ci](https://github.com/talesbarreto/images_files_checker/actions/workflows/flutter-ci.yml/badge.svg)
 
 A CI tool that verifies assets image files in the project.
 
@@ -6,15 +6,16 @@ A CI tool that verifies assets image files in the project.
 - Checks if each image has all expected resolutions files.
 - Report wrong image resolution.
 
-## usage
+## Usage
 ```bash
 flutter pub run images_files_checker --path assets/images
 ```
 | Parameter         | default                    | mandatory | description                  |
 |-------------------|----------------------------|-----------|------------------------------|
 | path              |                            | yes       | assets image files directory |
-| resolutions       | 1.0x,1.5x,2.0x,3.0x,4.0x   | no        | expected resolutions         |
+| resolutions       | 1.0x,1.5x,2.0x,3.0x,4.0x   | no        | expected densities           |
 | supported-formats | jpeg,webp,png,gif,bmp,wbmp | no        | Files that should be checked |
+    
 
 #### Output example:
 ```
@@ -28,6 +29,11 @@ dog.webp
         - missing file for 4.0x
 ```
 
+## Exit code
+- 0 no errors found
+- 1 test fail
+- 255 error
+
 ## Installation
 This is an alpha version. The only way to install it is adding to your `pubspec.yaml`:
 
@@ -38,14 +44,3 @@ dev_dependencies:
       url: git@github.com:talesbarreto/images_files_checker.git
       ref: main
 ```
-## Usage examples
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.

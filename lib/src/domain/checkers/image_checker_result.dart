@@ -1,10 +1,12 @@
-import 'package:images_files_checker/src/domain/repositories/image_metadata/models/image_resolution.dart';
+import 'package:images_files_checker/src/domain/assets/models/asset_density.dart';
+import 'package:images_files_checker/src/domain/common/pair.dart';
+import 'package:images_files_checker/src/domain/repositories/image_metadata/image_resolution.dart';
 
-class ImageFilesCheckerResult {
+class ImageCheckResult {
   final String imageFileName;
   final List<ImageFilesCheckerResultError> errors;
 
-  const ImageFilesCheckerResult({required this.imageFileName, required this.errors});
+  const ImageCheckResult({required this.imageFileName, required this.errors});
 }
 
 enum ImageFilesCheckerResultErrorType {
@@ -17,9 +19,9 @@ abstract class ImageFilesCheckerResultError {
 }
 
 class MissingFileError implements ImageFilesCheckerResultError {
-  final String resolutionName;
+  final AssetDensity assetDensity;
 
-  MissingFileError(this.resolutionName);
+  MissingFileError(this.assetDensity);
 
   @override
   ImageFilesCheckerResultErrorType get errorType => ImageFilesCheckerResultErrorType.testFail;
@@ -32,21 +34,17 @@ enum ComparisonFailType {
 }
 
 class ComparisonFail implements ImageFilesCheckerResultError {
+  final Pair<AssetDensity, ImageResolution> targetFile;
+  final Pair<AssetDensity, ImageResolution> comparedFile;
   final ComparisonFailType comparisonFailType;
-  final ImageResolution resolution;
-  final String resolutionName;
-  final String comparedImageFileResolutionName;
-  final ImageResolution comparedImageFileResolution;
 
   @override
   ImageFilesCheckerResultErrorType get errorType => ImageFilesCheckerResultErrorType.testFail;
 
   const ComparisonFail({
-    required this.resolution,
-    required this.resolutionName,
+    required this.targetFile,
+    required this.comparedFile,
     required this.comparisonFailType,
-    required this.comparedImageFileResolutionName,
-    required this.comparedImageFileResolution,
   });
 }
 
