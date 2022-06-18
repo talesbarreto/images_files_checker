@@ -1,8 +1,8 @@
 import 'package:args/args.dart';
-import 'package:images_files_checker/src/domain/assets/models/asset_density.dart';
+import 'package:images_files_checker/src/domain/assets_entries/models/asset_density.dart';
 import 'package:images_files_checker/src/domain/common/result.dart';
-import 'package:images_files_checker/src/domain/repositories/user_options/user_options.dart';
-import 'package:images_files_checker/src/domain/repositories/user_options/user_options_repository.dart';
+import 'package:images_files_checker/src/domain/user_options/models/user_options.dart';
+import 'package:images_files_checker/src/domain/user_options/repositories/user_options_repository.dart';
 
 class UserOptionsRepositoryImpl implements UserOptionsRepository {
   static const defaultSupportedResolutions = "1.0x,1.5x,2.0x,3.0x,4.0x";
@@ -11,6 +11,10 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
   final ArgParser argParser;
 
   UserOptionsRepositoryImpl(this.argParser);
+
+  factory UserOptionsRepositoryImpl.defaultImplementation() {
+    return UserOptionsRepositoryImpl(ArgParser());
+  }
 
   bool optionsRegistered = false;
 

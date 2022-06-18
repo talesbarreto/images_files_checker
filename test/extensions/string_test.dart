@@ -1,4 +1,4 @@
-import 'package:images_files_checker/extensions/string.dart';
+import 'package:images_files_checker/src/extensions/string.dart';
 import 'package:test/test.dart';
 
 void main() {
