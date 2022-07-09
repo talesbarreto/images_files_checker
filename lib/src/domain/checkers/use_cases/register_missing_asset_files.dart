@@ -8,14 +8,12 @@ class RegisterMissingAssetFiles {
 
   const RegisterMissingAssetFiles(this.getExpectedDensities);
 
-  void call(UserOptions userOptions, List<AssetEntry> assetEntries) {
+  void call(UserOptions userOptions, AssetEntry entry) {
     final expectedDensities = getExpectedDensities(userOptions);
-    for (final entry in assetEntries) {
-      for (final expectedDensity in expectedDensities) {
-        final resolution = entry.detectedResolutions[expectedDensity];
-        if (resolution == null) {
-          entry.errors.add(MissingFileError(expectedDensity));
-        }
+    for (final expectedDensity in expectedDensities) {
+      final resolution = entry.detectedResolutions[expectedDensity];
+      if (resolution == null) {
+        entry.errors.add(MissingFileError(expectedDensity));
       }
     }
   }

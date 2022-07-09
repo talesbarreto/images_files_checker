@@ -1,7 +1,8 @@
 import 'package:images_files_checker/src/domain/assets_entries/models/asset_entries.dart';
-import 'package:images_files_checker/src/domain/checkers/models/decode_error.dart';
+import 'package:images_files_checker/src/domain/checkers/models/image_decode_error.dart';
 import 'package:images_files_checker/src/domain/checkers/models/image_resolution_error.dart';
 import 'package:images_files_checker/src/domain/checkers/models/missing_file_error.dart';
+import 'package:images_files_checker/src/domain/checkers/models/unexpected_sub_dir_error.dart';
 
 class GetErrorMessage {
   String? call(AssetEntry assetEntry) {
@@ -31,9 +32,13 @@ class GetErrorMessage {
             }
             buffer.write(" ${error.comparedFile.first} (${error.comparedFile.second})");
             break;
-          case DecodeError:
-            error as DecodeError;
+          case ImageDecodeError:
+            error as ImageDecodeError;
             buffer.write('\n\t- ${error.message}');
+            break;
+          case UnexpectedSubDirError:
+            error as UnexpectedSubDirError;
+            buffer.write('\n\t- Unexpected sub-directory ${error.path}');
             break;
           default:
             throw Exception('Unknown error type ${error.runtimeType}');

@@ -9,13 +9,12 @@ enum ComparisonFailType {
   equal,
 }
 
+/// This error means that two images have inconsistent resolutions between them.
+/// Ex: `2.0x/image_1.png` is smaller than `1.5x/image_2.png`
 class ComparisonFail implements AnalyseResultError {
   final Pair<AssetDensity, ImageResolution> targetFile;
   final Pair<AssetDensity, ImageResolution> comparedFile;
   final ComparisonFailType comparisonFailType;
-
-  @override
-  ImageFilesCheckerResultErrorType get errorType => ImageFilesCheckerResultErrorType.testFail;
 
   const ComparisonFail({
     required this.targetFile,

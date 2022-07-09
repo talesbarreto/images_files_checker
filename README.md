@@ -10,11 +10,17 @@ A CI tool that verifies assets image files in the project.
 ```bash
 flutter pub run images_files_checker --path assets/images
 ```
-| Parameter         | default                    | mandatory | description                  |
-|-------------------|----------------------------|-----------|------------------------------|
-| path              |                            | yes       | assets image files directory |
-| resolutions       | 1.0x,1.5x,2.0x,3.0x,4.0x   | no        | expected densities           |
-| supported-formats | jpeg,webp,png,gif,bmp,wbmp | no        | Files that should be checked |
+
+| Parameter               | default                    | mandatory | description                                                                          |
+|-------------------------|----------------------------|-----------|--------------------------------------------------------------------------------------|
+| path                    |                            | yes       | Assets image files directory                                                         |
+| resolutions             | 1.0x,1.5x,2.0x,3.0x,4.0x   | no        | Expected densities                                                                   |
+| extensions              | jpeg,webp,png,gif,bmp,wbmp | no        | Image extensions that will be checked                                                |
+
+| Flags                      | description                                                                                      |
+|----------------------------|--------------------------------------------------------------------------------------------------|
+| unexpected-dir-is-an-error | If a image is in a subdir that doesn't fallow the pattern `#.#x`, it will be considered an error |
+| decoding-error-is-an-error | Images that failed to decode will be reported as an error                                        |
     
 
 #### Output example:

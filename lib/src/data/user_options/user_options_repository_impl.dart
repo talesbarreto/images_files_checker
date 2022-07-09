@@ -30,13 +30,23 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
     );
     argParser.addOption(
       "resolutions",
-      help: "Expeted resolutions variantes",
+      help: "Expected resolutions variantes",
       defaultsTo: defaultSupportedResolutions,
     );
     argParser.addOption(
-      "supported-formats",
-      help: "Supported image formats extensions",
+      "extensions",
+      help: "image extensions that will be checked",
       defaultsTo: defaultSupportedFiles,
+    );
+    argParser.addFlag(
+      "unexpected-dir-is-an-error",
+      help: "If a image is in a subdir that doesn't fallow the pattern `#.#x`, it will be considered an error",
+      defaultsTo: false,
+    );
+    argParser.addFlag(
+      "decoding-error-is-an-error",
+      help: "Images that failed to decode will be reported as an error",
+      defaultsTo: false,
     );
   }
 
@@ -53,7 +63,9 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
             .map((e) => AssetDensity.fromString(e)) // returns a list of AssetDensity?
             .whereType<AssetDensity>() // filtering not null values
             .toList(growable: false),
-        supportedFiles: result["supported-formats"].toLowerCase().split(","),
+        supportedFiles: result["extensions"].toLowerCase().split(","),
+        unexpectedSubDirIsAnError: result["unexpected-dir-is-an-error"],
+        decodingFailIsAnError: result["decoding-error-is-an-error"],
       ));
     } catch (e) {
       return ResultError(e.toString());

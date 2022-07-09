@@ -21,47 +21,49 @@ void main() {
     final mockGetExpectedDensities = MockGetExpectedDensities();
     when(mockGetExpectedDensities.call(any)).thenReturn(densities);
 
-    final assetEntry = AssetEntry(fileName: "file.png");
-    assetEntry.detectedResolutions.addAll({
+    final entry = AssetEntry(fileName: "file.png");
+    entry.detectedResolutions.addAll({
       densities[0]: ImageResolution(height: 1, width: 2),
       densities[1]: ImageResolution(height: 3, width: 4),
     });
-    final entries = <AssetEntry>[assetEntry];
 
     const userOptions = UserOptions(
       imagePath: "assets/images",
       expectedDensities: densities,
       supportedFiles: ["png"],
+      decodingFailIsAnError: false,
+      unexpectedSubDirIsAnError: false,
     );
 
     final useCase = RegisterMissingAssetFiles(mockGetExpectedDensities);
 
-    useCase(userOptions, entries);
+    useCase(userOptions, entry);
 
-    expect(assetEntry.hasErrors, false);
+    expect(entry.hasErrors, false);
   });
 
   test("When all density 1.5 is missing,register error", () {
     final mockGetExpectedDensities = MockGetExpectedDensities();
     when(mockGetExpectedDensities.call(any)).thenReturn(densities);
 
-    final assetEntry = AssetEntry(fileName: "file.png");
-    assetEntry.detectedResolutions.addAll({
+    final entry = AssetEntry(fileName: "file.png");
+    entry.detectedResolutions.addAll({
       densities[1]: ImageResolution(height: 3, width: 4),
     });
-    final entries = <AssetEntry>[assetEntry];
 
     const userOptions = UserOptions(
       imagePath: "assets/images",
       expectedDensities: densities,
       supportedFiles: ["png"],
+      decodingFailIsAnError: false,
+      unexpectedSubDirIsAnError: false,
     );
 
     final useCase = RegisterMissingAssetFiles(mockGetExpectedDensities);
 
-    useCase(userOptions, entries);
+    useCase(userOptions, entry);
 
-    expect(assetEntry.errors.length, equals(1));
-    expect(assetEntry.errors.first, isA<MissingFileError>());
+    expect(entry.errors.length, equals(1));
+    expect(entry.errors.first, isA<MissingFileError>());
   });
 }

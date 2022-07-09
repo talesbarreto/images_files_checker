@@ -21,6 +21,8 @@ void main() {
     imagePath: "assets/images",
     expectedDensities: [AssetDensity(1, 0), AssetDensity(1, 5), AssetDensity(2, 0)],
     supportedFiles: ["png"],
+    decodingFailIsAnError: false,
+    unexpectedSubDirIsAnError: false,
   );
 
   test("Do not register errors if all densities files seams correct", () {
@@ -52,6 +54,24 @@ void main() {
     final error = entry.errors.first as ComparisonFail;
     expect(error.targetFile.first, equals(AssetDensity(2, 0)));
     expect(error.comparisonFailType, ComparisonFailType.smaller);
+    expect(error.comparedFile.first, equals(AssetDensity(1, 5)));
+  });
+
+  test("When two resolution files are equal, return an error", () {
+    final checker = RegisterInconsistenciesBetweenDensities(getExpectedDensities);
+    final entry = AssetEntry(fileName: "unsupported.png");
+    entry.detectedResolutions.addAll({
+      AssetDensity(1, 0): ImageResolution(height: 1, width: 2),
+      AssetDensity(1, 5): ImageResolution(height: 5, width: 6),
+      AssetDensity(2, 0): ImageResolution(height: 5, width: 6),
+    });
+
+    checker(defaultUserOptions, entry);
+
+    expect(entry.errors.first, isA<ComparisonFail>());
+    final error = entry.errors.first as ComparisonFail;
+    expect(error.targetFile.first, equals(AssetDensity(2, 0)));
+    expect(error.comparisonFailType, ComparisonFailType.equal);
     expect(error.comparedFile.first, equals(AssetDensity(1, 5)));
   });
 }

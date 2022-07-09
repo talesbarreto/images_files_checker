@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:images_files_checker/src/domain/assets_entries/models/asset_density.dart';
 import 'package:images_files_checker/src/domain/assets_entries/models/asset_entries.dart';
-import 'package:images_files_checker/src/domain/checkers/models/decode_error.dart';
+import 'package:images_files_checker/src/domain/checkers/models/image_decode_error.dart';
+import 'package:images_files_checker/src/domain/checkers/models/unexpected_sub_dir_error.dart';
 import 'package:images_files_checker/src/domain/common/result.dart';
 import 'package:images_files_checker/src/domain/assets_entries/repositories/image_metadata_repository.dart';
 import 'package:images_files_checker/src/domain/assets_entries/models/image_resolution.dart';
@@ -16,7 +17,7 @@ class RetrieveAssetEntries {
 
   const RetrieveAssetEntries(this.isFileSupported, this.imageMetadataRepository);
 
-  AssetDensity? _getImageDensity(ImageMetadataRepository imageMetadataDataSource, UserOptions userOptions, File file)  {
+  AssetDensity? _getImageDensity(ImageMetadataRepository imageMetadataDataSource, UserOptions userOptions, File file) {
     final imageDensityResult = imageMetadataDataSource.getImagePixelDensity(file, userOptions.imagePath);
     if (imageDensityResult is ResultSuccess) {
       return (imageDensityResult as ResultSuccess).data;
@@ -37,15 +38,14 @@ class RetrieveAssetEntries {
 
       final AssetDensity? imageDensity = _getImageDensity(imageMetadataRepository, userOptions, file);
       if (imageDensity == null) {
-        // ImageMetadataDataSource checks the path segment to determine the image density (there is no other way 🤓)
-        // A failure in this process is very unlikely
+        assetEntries.registerError(file.fileName, UnexpectedSubDirError(file.path));
         continue;
       }
       final resolution = await imageMetadataRepository.getImageResolution(file);
       if (resolution is ResultSuccess<ImageResolution>) {
         assetEntries.addDetectedDensity(file.fileName, imageDensity, resolution.data);
       } else if (resolution is ResultError) {
-        assetEntries.registerError(file.fileName, DecodeError(file.fileName, (resolution as ResultError).message));
+        assetEntries.registerError(file.fileName, ImageDecodeError(file.fileName, (resolution as ResultError).message));
       }
     }
 
