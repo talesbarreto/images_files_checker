@@ -2,12 +2,9 @@
 // in images_files_checker/test/domain/checkers/use_cases/register_missing_asset_files_test.dart.
 // Do not manually edit this file.
 
-import 'package:images_files_checker/src/domain/assets_entries/models/asset_density.dart'
-    as _i3;
-import 'package:images_files_checker/src/domain/assets_entries/use_cases/get_expected_densities.dart'
-    as _i2;
-import 'package:images_files_checker/src/domain/user_options/models/user_options.dart'
-    as _i4;
+import 'package:images_files_checker/src/domain/assets_entries/models/asset_density.dart' as _i3;
+import 'package:images_files_checker/src/domain/assets_entries/use_cases/get_expected_densities.dart' as _i2;
+import 'package:images_files_checker/src/domain/user_options/models/user_options.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -23,10 +20,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [GetExpectedDensities].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetExpectedDensities extends _i1.Mock
-    implements _i2.GetExpectedDensities {
+class MockGetExpectedDensities extends _i1.Mock implements _i2.GetExpectedDensities {
   @override
-  List<_i3.AssetDensity> call(_i4.UserOptions? userOptions) =>
-      (super.noSuchMethod(Invocation.method(#call, [userOptions]),
-          returnValue: <_i3.AssetDensity>[]) as List<_i3.AssetDensity>);
+  List<_i3.AssetDensity> call(_i4.UserOptions? userOptions) => (super.noSuchMethod(Invocation.method(#call, [userOptions]), returnValue: <_i3.AssetDensity>[]) as List<_i3.AssetDensity>);
 }

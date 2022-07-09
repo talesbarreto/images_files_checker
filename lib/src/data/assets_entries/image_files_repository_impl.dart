@@ -9,7 +9,7 @@ class ImageFilesRepositoryImpl implements ImageFilesRepository {
       final dir = Directory(path);
       final List<File> files = [];
 
-      await for (var entity in dir.list(recursive: true, followLinks: false)) {
+      await for (final entity in dir.list(recursive: true, followLinks: false)) {
         if (entity is File) {
           files.add(entity);
         }

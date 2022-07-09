@@ -25,7 +25,6 @@ class ExecuteAnalyses {
     required List<AssetEntry> assets,
     required void Function(Object? object) log,
   }) async {
-
     // keeping in different loops to keep same errors in together on the output
     for (final asset in assets) {
       registerMissingAssetFiles(userOptions, asset);

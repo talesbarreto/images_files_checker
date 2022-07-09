@@ -6,5 +6,4 @@ class ImageDecodeError implements AnalyseResultError {
   final String message;
 
   const ImageDecodeError(this.fileName, this.message);
-
 }
