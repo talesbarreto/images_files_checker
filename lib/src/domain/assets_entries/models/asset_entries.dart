@@ -21,7 +21,7 @@ extension AssetEntries on List<AssetEntry> {
     });
   }
 
-  /// Finds the asset entry and adds the detected density to it. Add a new asset entry if it doesn't exist.
+  /// Finds the asset entry and adds the detected resolution to it. Add a new asset entry if it doesn't exist.
   void addDetectedDensity(String fileName, AssetDensity assetDensity, ImageResolution imageResolution) {
     final image = _getOrAdd(fileName);
     image.detectedResolutions[assetDensity] = imageResolution;
