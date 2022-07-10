@@ -15,10 +15,15 @@ class RetrieveAssetEntries {
   final IsFileSupported isFileSupported;
   final ImageMetadataRepository imageMetadataRepository;
 
-  const RetrieveAssetEntries(this.isFileSupported, this.imageMetadataRepository);
+  const RetrieveAssetEntries(
+      this.isFileSupported, this.imageMetadataRepository);
 
-  AssetDensity? _getImageDensity(ImageMetadataRepository imageMetadataDataSource, UserOptions userOptions, File file) {
-    final imageDensityResult = imageMetadataDataSource.getImagePixelDensity(file, userOptions.imagePath);
+  AssetDensity? _getImageDensity(
+      ImageMetadataRepository imageMetadataDataSource,
+      UserOptions userOptions,
+      File file) {
+    final imageDensityResult = imageMetadataDataSource.getImagePixelDensity(
+        file, userOptions.imagePath);
     if (imageDensityResult is ResultSuccess) {
       return (imageDensityResult as ResultSuccess).data;
     } else {
@@ -36,16 +41,22 @@ class RetrieveAssetEntries {
         continue;
       }
 
-      final AssetDensity? imageDensity = _getImageDensity(imageMetadataRepository, userOptions, file);
+      final AssetDensity? imageDensity =
+          _getImageDensity(imageMetadataRepository, userOptions, file);
       if (imageDensity == null) {
-        assetEntries.registerError(file.fileName, UnexpectedSubDirError(file.path));
+        assetEntries.registerError(
+            file.fileName, UnexpectedSubDirError(file.path));
         continue;
       }
       final resolution = await imageMetadataRepository.getImageResolution(file);
       if (resolution is ResultSuccess<ImageResolution>) {
-        assetEntries.addDetectedDensity(file.fileName, imageDensity, resolution.data);
+        assetEntries.addDetectedDensity(
+            file.fileName, imageDensity, resolution.data);
       } else if (resolution is ResultError) {
-        assetEntries.registerError(file.fileName, ImageDecodeError(file.fileName, (resolution as ResultError).message));
+        assetEntries.registerError(
+            file.fileName,
+            ImageDecodeError(
+                file.fileName, (resolution as ResultError).message));
       }
     }
 

@@ -35,7 +35,8 @@ void main() {
     test("return a ResultError if decoder returns null", () async {
       final repository = ImageMetadataRepositoryImpl(fakeDecoderToNull);
 
-      final result = await repository.getImageResolution(File("/hahaha/wow.png"));
+      final result =
+          await repository.getImageResolution(File("/hahaha/wow.png"));
 
       expect(result, isA<ResultError<ImageResolution>>());
     });
@@ -44,19 +45,23 @@ void main() {
   group("when `getImagePixelDensity` is invoked", () {
     test("return defaultDensity if file is in the root of assets dir", () {
       final repository = ImageMetadataRepositoryImpl(fakeDecoderToNull);
-      final result = repository.getImagePixelDensity(File("/hahaha/wow.png"), "/hahaha") as ResultSuccess<AssetDensity>;
+      final result = repository.getImagePixelDensity(
+          File("/hahaha/wow.png"), "/hahaha") as ResultSuccess<AssetDensity>;
       expect(result.data, equals(ImageMetadataRepository.defaultDensity));
     });
 
     test("return 2.0 if file is in `2.0x` sub dir", () {
       final repository = ImageMetadataRepositoryImpl(fakeDecoderToNull);
-      final result = repository.getImagePixelDensity(File("/hahaha/2.0x/wow.png"), "/hahaha") as ResultSuccess<AssetDensity>;
+      final result = repository.getImagePixelDensity(
+              File("/hahaha/2.0x/wow.png"), "/hahaha")
+          as ResultSuccess<AssetDensity>;
       expect(result.data, equals(AssetDensity(2, 0)));
     });
 
     test("return ResultError if file is in `Rammstein` sub dir", () {
       final repository = ImageMetadataRepositoryImpl(fakeDecoderToNull);
-      final result = repository.getImagePixelDensity(File("/hahaha/Rammstein/wow.png"), "/hahaha");
+      final result = repository.getImagePixelDensity(
+          File("/hahaha/Rammstein/wow.png"), "/hahaha");
       expect(result, isA<ResultError<AssetDensity>>());
     });
   });

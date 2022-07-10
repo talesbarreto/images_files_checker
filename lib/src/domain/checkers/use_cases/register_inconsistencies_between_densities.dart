@@ -15,7 +15,8 @@ class RegisterInconsistenciesBetweenDensities {
 
     for (int i = 1; i < expectedDensities.length; i++) {
       final resolution = entry.detectedResolutions[expectedDensities[i]];
-      final previousAssetResolution = entry.detectedResolutions[expectedDensities[i - 1]];
+      final previousAssetResolution =
+          entry.detectedResolutions[expectedDensities[i - 1]];
 
       if (resolution == null || previousAssetResolution == null) {
         continue;
@@ -26,7 +27,8 @@ class RegisterInconsistenciesBetweenDensities {
           ComparisonFail(
             comparisonFailType: ComparisonFailType.smaller,
             targetFile: Pair(expectedDensities[i], resolution),
-            comparedFile: Pair(expectedDensities[i - 1], previousAssetResolution),
+            comparedFile:
+                Pair(expectedDensities[i - 1], previousAssetResolution),
           ),
         );
       } else if (resolution == previousAssetResolution) {
@@ -34,7 +36,8 @@ class RegisterInconsistenciesBetweenDensities {
           ComparisonFail(
             comparisonFailType: ComparisonFailType.equal,
             targetFile: Pair(expectedDensities[i], resolution),
-            comparedFile: Pair(expectedDensities[i - 1], previousAssetResolution),
+            comparedFile:
+                Pair(expectedDensities[i - 1], previousAssetResolution),
           ),
         );
       }

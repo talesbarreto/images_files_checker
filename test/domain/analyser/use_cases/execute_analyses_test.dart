@@ -20,7 +20,8 @@ import 'execute_analyses_test.mocks.dart';
 
 @GenerateMocks([], customMocks: [
   MockSpec<RegisterMissingAssetFiles>(returnNullOnMissingStub: true),
-  MockSpec<RegisterInconsistenciesBetweenDensities>(returnNullOnMissingStub: true),
+  MockSpec<RegisterInconsistenciesBetweenDensities>(
+      returnNullOnMissingStub: true),
   MockSpec<GetErrorMessage>(returnNullOnMissingStub: true),
 ])
 void main() {
@@ -36,35 +37,43 @@ void main() {
 
     test("Register call RegisterMissingAssetFiles checker", () async {
       final registerMissingAssetFiles = MockRegisterMissingAssetFiles();
-      final registerInconsistenciesBetweenDensities = MockRegisterInconsistenciesBetweenDensities();
+      final registerInconsistenciesBetweenDensities =
+          MockRegisterInconsistenciesBetweenDensities();
       final getErrorMessage = MockGetErrorMessage();
 
       final executeAnalyses = ExecuteAnalyses(
         getErrorMessage: getErrorMessage,
         registerMissingAssetFiles: registerMissingAssetFiles,
-        registerInconsistenciesBetweenDensities: registerInconsistenciesBetweenDensities,
+        registerInconsistenciesBetweenDensities:
+            registerInconsistenciesBetweenDensities,
       );
 
-      await executeAnalyses(userOptions: userOptions, assets: assets, log: (_) {});
+      await executeAnalyses(
+          userOptions: userOptions, assets: assets, log: (_) {});
       for (final entry in assets) {
         verify(registerMissingAssetFiles.call(userOptions, entry)).called(1);
       }
     });
 
-    test("Register call RegisterInconsistenciesBetweenDensities checker", () async {
+    test("Register call RegisterInconsistenciesBetweenDensities checker",
+        () async {
       final registerMissingAssetFiles = MockRegisterMissingAssetFiles();
-      final registerInconsistenciesBetweenDensities = MockRegisterInconsistenciesBetweenDensities();
+      final registerInconsistenciesBetweenDensities =
+          MockRegisterInconsistenciesBetweenDensities();
       final getErrorMessage = MockGetErrorMessage();
 
       final executeAnalyses = ExecuteAnalyses(
         getErrorMessage: getErrorMessage,
         registerMissingAssetFiles: registerMissingAssetFiles,
-        registerInconsistenciesBetweenDensities: registerInconsistenciesBetweenDensities,
+        registerInconsistenciesBetweenDensities:
+            registerInconsistenciesBetweenDensities,
       );
 
-      await executeAnalyses(userOptions: userOptions, assets: assets, log: (_) {});
+      await executeAnalyses(
+          userOptions: userOptions, assets: assets, log: (_) {});
       for (final entry in assets) {
-        verify(registerInconsistenciesBetweenDensities.call(userOptions, entry)).called(1);
+        verify(registerInconsistenciesBetweenDensities.call(userOptions, entry))
+            .called(1);
       }
     });
   });
@@ -74,11 +83,14 @@ void main() {
     final executeAnalyses = ExecuteAnalyses(
       getErrorMessage: MockGetErrorMessage(),
       registerMissingAssetFiles: MockRegisterMissingAssetFiles(),
-      registerInconsistenciesBetweenDensities: MockRegisterInconsistenciesBetweenDensities(),
+      registerInconsistenciesBetweenDensities:
+          MockRegisterInconsistenciesBetweenDensities(),
     );
     assets.first.errors.add(ImageDecodeError("", ""));
 
-    test("Return `ExitCode.noErrorsFounds` if `userOptions.decodingFailIsAnError` is false", () async {
+    test(
+        "Return `ExitCode.noErrorsFounds` if `userOptions.decodingFailIsAnError` is false",
+        () async {
       const userOptions = UserOptions(
         imagePath: "assets/images",
         expectedDensities: [],
@@ -87,11 +99,14 @@ void main() {
         unexpectedSubDirIsAnError: false,
       );
 
-      final result = await executeAnalyses(userOptions: userOptions, assets: assets, log: (_) {});
+      final result = await executeAnalyses(
+          userOptions: userOptions, assets: assets, log: (_) {});
 
       expect(result, ExitCode.noErrorsFounds);
     });
-    test("Return `ExitCode.testFail` if `userOptions.decodingFailIsAnError` is true", () async {
+    test(
+        "Return `ExitCode.testFail` if `userOptions.decodingFailIsAnError` is true",
+        () async {
       const userOptions = UserOptions(
         imagePath: "assets/images",
         expectedDensities: [],
@@ -100,7 +115,8 @@ void main() {
         unexpectedSubDirIsAnError: false,
       );
 
-      final result = await executeAnalyses(userOptions: userOptions, assets: assets, log: (_) {});
+      final result = await executeAnalyses(
+          userOptions: userOptions, assets: assets, log: (_) {});
 
       expect(result, ExitCode.testFail);
     });
@@ -111,11 +127,14 @@ void main() {
     final executeAnalyses = ExecuteAnalyses(
       getErrorMessage: MockGetErrorMessage(),
       registerMissingAssetFiles: MockRegisterMissingAssetFiles(),
-      registerInconsistenciesBetweenDensities: MockRegisterInconsistenciesBetweenDensities(),
+      registerInconsistenciesBetweenDensities:
+          MockRegisterInconsistenciesBetweenDensities(),
     );
     assets.first.errors.add(UnexpectedSubDirError(""));
 
-    test("Return `ExitCode.noErrorsFounds` if `userOptions.decodingFailIsAnError` is false", () async {
+    test(
+        "Return `ExitCode.noErrorsFounds` if `userOptions.decodingFailIsAnError` is false",
+        () async {
       const userOptions = UserOptions(
         imagePath: "assets/images",
         expectedDensities: [],
@@ -124,11 +143,14 @@ void main() {
         unexpectedSubDirIsAnError: false,
       );
 
-      final result = await executeAnalyses(userOptions: userOptions, assets: assets, log: (_) {});
+      final result = await executeAnalyses(
+          userOptions: userOptions, assets: assets, log: (_) {});
 
       expect(result, ExitCode.noErrorsFounds);
     });
-    test("Return `ExitCode.testFail` if `userOptions.decodingFailIsAnError` is true", () async {
+    test(
+        "Return `ExitCode.testFail` if `userOptions.decodingFailIsAnError` is true",
+        () async {
       const userOptions = UserOptions(
         imagePath: "assets/images",
         expectedDensities: [],
@@ -137,7 +159,8 @@ void main() {
         unexpectedSubDirIsAnError: true,
       );
 
-      final result = await executeAnalyses(userOptions: userOptions, assets: assets, log: (_) {});
+      final result = await executeAnalyses(
+          userOptions: userOptions, assets: assets, log: (_) {});
 
       expect(result, ExitCode.testFail);
     });
@@ -158,7 +181,8 @@ void main() {
     final executeAnalyses = ExecuteAnalyses(
       getErrorMessage: MockGetErrorMessage(),
       registerMissingAssetFiles: MockRegisterMissingAssetFiles(),
-      registerInconsistenciesBetweenDensities: MockRegisterInconsistenciesBetweenDensities(),
+      registerInconsistenciesBetweenDensities:
+          MockRegisterInconsistenciesBetweenDensities(),
     );
 
     test("assets has a ComparisonFail", () async {
@@ -168,12 +192,15 @@ void main() {
           comparedFile: Pair(dummyDensity, dummyResolution),
           targetFile: Pair(dummyDensity, dummyResolution),
         ));
-      final result = await executeAnalyses(userOptions: userOptions, assets: [asset], log: (_) {});
+      final result = await executeAnalyses(
+          userOptions: userOptions, assets: [asset], log: (_) {});
       expect(result, ExitCode.testFail);
     });
     test("assets has a MissingFileError", () async {
-      final asset = AssetEntry(fileName: 'ha.png')..errors.add(MissingFileError(dummyDensity));
-      final result = await executeAnalyses(userOptions: userOptions, assets: [asset], log: (_) {});
+      final asset = AssetEntry(fileName: 'ha.png')
+        ..errors.add(MissingFileError(dummyDensity));
+      final result = await executeAnalyses(
+          userOptions: userOptions, assets: [asset], log: (_) {});
       expect(result, ExitCode.testFail);
     });
   });

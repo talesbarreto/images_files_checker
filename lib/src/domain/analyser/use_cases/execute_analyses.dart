@@ -9,7 +9,8 @@ import 'package:images_files_checker/src/domain/user_options/models/user_options
 
 class ExecuteAnalyses {
   final RegisterMissingAssetFiles registerMissingAssetFiles;
-  final RegisterInconsistenciesBetweenDensities registerInconsistenciesBetweenDensities;
+  final RegisterInconsistenciesBetweenDensities
+      registerInconsistenciesBetweenDensities;
   final GetErrorMessage getErrorMessage;
 
   const ExecuteAnalyses({

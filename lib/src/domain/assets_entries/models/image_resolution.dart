@@ -6,11 +6,14 @@ class ImageResolution implements Comparable<ImageResolution> {
 
   @override
   operator ==(other) {
-    return other is ImageResolution && other.width == width && other.height == height;
+    return other is ImageResolution &&
+        other.width == width &&
+        other.height == height;
   }
 
   operator >(other) {
-    return other is ImageResolution && width * height > other.width * other.height;
+    return other is ImageResolution &&
+        width * height > other.width * other.height;
   }
 
   operator <(other) {

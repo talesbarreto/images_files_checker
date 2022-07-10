@@ -2,12 +2,18 @@
 // in images_files_checker/test/domain/analyser/use_cases/execute_analyses_test.dart.
 // Do not manually edit this file.
 
-import 'package:images_files_checker/src/domain/analyser/use_cases/get_error_message.dart' as _i7;
-import 'package:images_files_checker/src/domain/assets_entries/models/asset_entries.dart' as _i5;
-import 'package:images_files_checker/src/domain/assets_entries/use_cases/get_expected_densities.dart' as _i2;
-import 'package:images_files_checker/src/domain/checkers/use_cases/register_inconsistencies_between_densities.dart' as _i6;
-import 'package:images_files_checker/src/domain/checkers/use_cases/register_missing_asset_files.dart' as _i3;
-import 'package:images_files_checker/src/domain/user_options/models/user_options.dart' as _i4;
+import 'package:images_files_checker/src/domain/analyser/use_cases/get_error_message.dart'
+    as _i7;
+import 'package:images_files_checker/src/domain/assets_entries/models/asset_entries.dart'
+    as _i5;
+import 'package:images_files_checker/src/domain/assets_entries/use_cases/get_expected_densities.dart'
+    as _i2;
+import 'package:images_files_checker/src/domain/checkers/use_cases/register_inconsistencies_between_densities.dart'
+    as _i6;
+import 'package:images_files_checker/src/domain/checkers/use_cases/register_missing_asset_files.dart'
+    as _i3;
+import 'package:images_files_checker/src/domain/user_options/models/user_options.dart'
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -20,26 +26,37 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeGetExpectedDensities_0 extends _i1.Fake implements _i2.GetExpectedDensities {}
+class _FakeGetExpectedDensities_0 extends _i1.Fake
+    implements _i2.GetExpectedDensities {}
 
 /// A class which mocks [RegisterMissingAssetFiles].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRegisterMissingAssetFiles extends _i1.Mock implements _i3.RegisterMissingAssetFiles {
+class MockRegisterMissingAssetFiles extends _i1.Mock
+    implements _i3.RegisterMissingAssetFiles {
   @override
-  _i2.GetExpectedDensities get getExpectedDensities => (super.noSuchMethod(Invocation.getter(#getExpectedDensities), returnValue: _FakeGetExpectedDensities_0()) as _i2.GetExpectedDensities);
+  _i2.GetExpectedDensities get getExpectedDensities => (super.noSuchMethod(
+      Invocation.getter(#getExpectedDensities),
+      returnValue: _FakeGetExpectedDensities_0()) as _i2.GetExpectedDensities);
   @override
-  void call(_i4.UserOptions? userOptions, _i5.AssetEntry? entry) => super.noSuchMethod(Invocation.method(#call, [userOptions, entry]), returnValueForMissingStub: null);
+  void call(_i4.UserOptions? userOptions, _i5.AssetEntry? entry) =>
+      super.noSuchMethod(Invocation.method(#call, [userOptions, entry]),
+          returnValueForMissingStub: null);
 }
 
 /// A class which mocks [RegisterInconsistenciesBetweenDensities].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRegisterInconsistenciesBetweenDensities extends _i1.Mock implements _i6.RegisterInconsistenciesBetweenDensities {
+class MockRegisterInconsistenciesBetweenDensities extends _i1.Mock
+    implements _i6.RegisterInconsistenciesBetweenDensities {
   @override
-  _i2.GetExpectedDensities get getExpectedDensities => (super.noSuchMethod(Invocation.getter(#getExpectedDensities), returnValue: _FakeGetExpectedDensities_0()) as _i2.GetExpectedDensities);
+  _i2.GetExpectedDensities get getExpectedDensities => (super.noSuchMethod(
+      Invocation.getter(#getExpectedDensities),
+      returnValue: _FakeGetExpectedDensities_0()) as _i2.GetExpectedDensities);
   @override
-  void call(_i4.UserOptions? userOptions, _i5.AssetEntry? entry) => super.noSuchMethod(Invocation.method(#call, [userOptions, entry]), returnValueForMissingStub: null);
+  void call(_i4.UserOptions? userOptions, _i5.AssetEntry? entry) =>
+      super.noSuchMethod(Invocation.method(#call, [userOptions, entry]),
+          returnValueForMissingStub: null);
 }
 
 /// A class which mocks [GetErrorMessage].
@@ -47,5 +64,6 @@ class MockRegisterInconsistenciesBetweenDensities extends _i1.Mock implements _i
 /// See the documentation for Mockito's code generation for more information.
 class MockGetErrorMessage extends _i1.Mock implements _i7.GetErrorMessage {
   @override
-  String? call(_i5.AssetEntry? assetEntry) => (super.noSuchMethod(Invocation.method(#call, [assetEntry])) as String?);
+  String? call(_i5.AssetEntry? assetEntry) =>
+      (super.noSuchMethod(Invocation.method(#call, [assetEntry])) as String?);
 }

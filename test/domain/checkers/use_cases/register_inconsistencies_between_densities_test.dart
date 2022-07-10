@@ -13,20 +13,29 @@ import 'register_inconsistencies_between_densities_test.mocks.dart';
 
 @GenerateMocks([GetExpectedDensities])
 void main() {
-  const densities = [AssetDensity(1, 0), AssetDensity(1, 5), AssetDensity(2, 0)];
+  const densities = [
+    AssetDensity(1, 0),
+    AssetDensity(1, 5),
+    AssetDensity(2, 0)
+  ];
   final getExpectedDensities = MockGetExpectedDensities();
   when(getExpectedDensities.call(any)).thenReturn(densities);
 
   const defaultUserOptions = UserOptions(
     imagePath: "assets/images",
-    expectedDensities: [AssetDensity(1, 0), AssetDensity(1, 5), AssetDensity(2, 0)],
+    expectedDensities: [
+      AssetDensity(1, 0),
+      AssetDensity(1, 5),
+      AssetDensity(2, 0)
+    ],
     supportedFiles: ["png"],
     decodingFailIsAnError: false,
     unexpectedSubDirIsAnError: false,
   );
 
   test("Do not register errors if all densities files seams correct", () {
-    final checker = RegisterInconsistenciesBetweenDensities(getExpectedDensities);
+    final checker =
+        RegisterInconsistenciesBetweenDensities(getExpectedDensities);
     final entry = AssetEntry(fileName: "unsupported.png");
     entry.detectedResolutions.addAll({
       AssetDensity(1, 0): ImageResolution(height: 1, width: 2),
@@ -40,7 +49,8 @@ void main() {
   });
 
   test("When two resolution files are swapped, return an error", () {
-    final checker = RegisterInconsistenciesBetweenDensities(getExpectedDensities);
+    final checker =
+        RegisterInconsistenciesBetweenDensities(getExpectedDensities);
     final entry = AssetEntry(fileName: "unsupported.png");
     entry.detectedResolutions.addAll({
       AssetDensity(1, 0): ImageResolution(height: 1, width: 2),
@@ -58,7 +68,8 @@ void main() {
   });
 
   test("When two resolution files are equal, return an error", () {
-    final checker = RegisterInconsistenciesBetweenDensities(getExpectedDensities);
+    final checker =
+        RegisterInconsistenciesBetweenDensities(getExpectedDensities);
     final entry = AssetEntry(fileName: "unsupported.png");
     entry.detectedResolutions.addAll({
       AssetDensity(1, 0): ImageResolution(height: 1, width: 2),

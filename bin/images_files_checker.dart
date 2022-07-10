@@ -19,18 +19,22 @@ import 'package:images_files_checker/src/domain/user_options/repositories/user_o
 ExecuteAnalyses _getExecuteAnalyses() {
   final getErrorMessage = GetErrorMessage();
   final getExpectedDensities = GetExpectedDensities();
-  final registerMissingAssetFiles = RegisterMissingAssetFiles(getExpectedDensities);
-  final registerInconsistenciesBetweenDensities = RegisterInconsistenciesBetweenDensities(getExpectedDensities);
+  final registerMissingAssetFiles =
+      RegisterMissingAssetFiles(getExpectedDensities);
+  final registerInconsistenciesBetweenDensities =
+      RegisterInconsistenciesBetweenDensities(getExpectedDensities);
 
   return ExecuteAnalyses(
     registerMissingAssetFiles: registerMissingAssetFiles,
     getErrorMessage: getErrorMessage,
-    registerInconsistenciesBetweenDensities: registerInconsistenciesBetweenDensities,
+    registerInconsistenciesBetweenDensities:
+        registerInconsistenciesBetweenDensities,
   );
 }
 
 UserOptions _getOrFailUserOptions(List<String> arguments) {
-  final UserOptionsRepository argsRepository = UserOptionsRepositoryImpl.defaultImplementation();
+  final UserOptionsRepository argsRepository =
+      UserOptionsRepositoryImpl.defaultImplementation();
   final userOptions = argsRepository.getUserOptions(arguments);
   if (userOptions is ResultSuccess<UserOptions>) {
     return userOptions.data;
@@ -42,13 +46,15 @@ UserOptions _getOrFailUserOptions(List<String> arguments) {
 }
 
 Future<List<AssetEntry>> _getOrFailAssetEntries(UserOptions userOptions) async {
-  final files = await ImageFilesRepositoryImpl().getImageFiles(userOptions.imagePath);
+  final files =
+      await ImageFilesRepositoryImpl().getImageFiles(userOptions.imagePath);
   if (files is! ResultSuccess<List<File>>) {
     files as ResultError<List<File>>;
     print(files.message);
     exit(ExitCode.error);
   }
-  final retrieveAssetEntries = RetrieveAssetEntries(IsFileSupported(), ImageMetadataRepositoryImpl.defaultImplementation());
+  final retrieveAssetEntries = RetrieveAssetEntries(
+      IsFileSupported(), ImageMetadataRepositoryImpl.defaultImplementation());
   return retrieveAssetEntries(userOptions: userOptions, files: files.data);
 }
 
@@ -59,6 +65,7 @@ Future<void> main(List<String> arguments) async {
 
   final assets = await _getOrFailAssetEntries(userOptions);
 
-  int exitCode = await executeAnalyses(userOptions: userOptions, assets: assets, log: print);
+  int exitCode = await executeAnalyses(
+      userOptions: userOptions, assets: assets, log: print);
   exit(exitCode);
 }

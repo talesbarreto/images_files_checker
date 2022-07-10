@@ -40,7 +40,8 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
     );
     argParser.addFlag(
       "unexpected-dir-is-an-error",
-      help: "If a image is in a subdir that doesn't fallow the pattern `#.#x`, it will be considered an error",
+      help:
+          "If a image is in a subdir that doesn't fallow the pattern `#.#x`, it will be considered an error",
       defaultsTo: false,
     );
     argParser.addFlag(
@@ -60,7 +61,8 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
         expectedDensities: result["resolutions"]
             .toLowerCase()
             .split(",")
-            .map((e) => AssetDensity.fromString(e)) // returns a list of AssetDensity?
+            .map((e) =>
+                AssetDensity.fromString(e)) // returns a list of AssetDensity?
             .whereType<AssetDensity>() // filtering not null values
             .toList(growable: false),
         supportedFiles: result["extensions"].toLowerCase().split(","),
