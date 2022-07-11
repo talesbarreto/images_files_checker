@@ -58,7 +58,7 @@ class ExecuteAnalyses {
       log("\n -> Errors were found in the assets");
       return ExitCode.testFail;
     } else {
-      log("\n -> Images files are ok");
+      log("\n -> Image files are ok");
       return ExitCode.noErrorsFounds;
     }
   }
