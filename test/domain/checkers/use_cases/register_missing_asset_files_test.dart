@@ -33,6 +33,7 @@ void main() {
       supportedFiles: ["png"],
       decodingFailIsAnError: false,
       unexpectedSubDirIsAnError: false,
+      ignoredFiles: [],
     );
 
     final useCase = RegisterMissingAssetFiles(mockGetExpectedDensities);
@@ -57,6 +58,7 @@ void main() {
       supportedFiles: ["png"],
       decodingFailIsAnError: false,
       unexpectedSubDirIsAnError: false,
+      ignoredFiles: [],
     );
 
     final useCase = RegisterMissingAssetFiles(mockGetExpectedDensities);

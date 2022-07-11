@@ -39,15 +39,20 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
       defaultsTo: defaultSupportedFiles,
     );
     argParser.addFlag(
-      "unexpected-dir-is-an-error",
+      "fail-test-on-unexpected-dir",
       help:
           "If a image is in a subdir that doesn't fallow the pattern `#.#x`, it will be considered an error",
       defaultsTo: false,
     );
     argParser.addFlag(
-      "decoding-error-is-an-error",
+      "fail-test-on-decoding-error",
       help: "Images that failed to decode will be reported as an error",
       defaultsTo: false,
+    );
+    argParser.addOption(
+      "ignore",
+      help: "files that will be ignored, including its extensions",
+      defaultsTo: null,
     );
   }
 
@@ -61,13 +66,17 @@ class UserOptionsRepositoryImpl implements UserOptionsRepository {
         expectedDensities: result["resolutions"]
             .toLowerCase()
             .split(",")
-            .map((e) =>
-                AssetDensity.fromString(e)) // returns a list of AssetDensity?
+            .map((e) => AssetDensity.fromString(e))
             .whereType<AssetDensity>() // filtering not null values
             .toList(growable: false),
         supportedFiles: result["extensions"].toLowerCase().split(","),
-        unexpectedSubDirIsAnError: result["unexpected-dir-is-an-error"],
-        decodingFailIsAnError: result["decoding-error-is-an-error"],
+        unexpectedSubDirIsAnError: result["fail-test-on-unexpected-dir"],
+        decodingFailIsAnError: result["fail-test-on-decoding-error"],
+        ignoredFiles: result["ignore"]
+                ?.toLowerCase()
+                .split(",")
+                .toList(growable: false) ??
+            [],
       ));
     } catch (e) {
       return ResultError(e.toString());

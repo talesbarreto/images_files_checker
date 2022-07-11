@@ -32,6 +32,7 @@ void main() {
       supportedFiles: ["png"],
       decodingFailIsAnError: false,
       unexpectedSubDirIsAnError: false,
+      ignoredFiles: [],
     );
     final assets = [AssetEntry(fileName: 'ha.png')];
 
@@ -97,6 +98,7 @@ void main() {
         supportedFiles: ["png"],
         decodingFailIsAnError: false,
         unexpectedSubDirIsAnError: false,
+        ignoredFiles: [],
       );
 
       final result = await executeAnalyses(
@@ -113,6 +115,7 @@ void main() {
         supportedFiles: ["png"],
         decodingFailIsAnError: true,
         unexpectedSubDirIsAnError: false,
+        ignoredFiles: [],
       );
 
       final result = await executeAnalyses(
@@ -141,6 +144,7 @@ void main() {
         supportedFiles: ["png"],
         decodingFailIsAnError: false,
         unexpectedSubDirIsAnError: false,
+        ignoredFiles: [],
       );
 
       final result = await executeAnalyses(
@@ -157,6 +161,7 @@ void main() {
         supportedFiles: ["png"],
         decodingFailIsAnError: false,
         unexpectedSubDirIsAnError: true,
+        ignoredFiles: [],
       );
 
       final result = await executeAnalyses(
@@ -176,6 +181,7 @@ void main() {
       supportedFiles: ["png"],
       decodingFailIsAnError: false,
       unexpectedSubDirIsAnError: false,
+      ignoredFiles: [],
     );
 
     final executeAnalyses = ExecuteAnalyses(

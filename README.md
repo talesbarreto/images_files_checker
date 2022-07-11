@@ -7,10 +7,20 @@ Flutter can load resolution-appropriate images for the current device pixel rati
 This is a tedious task, and can easily lead to errors. This tool helps you to verify that all the images are properly arranged, checking if each image has all expected files and if those files doesn't have inconsistent resolutions between them.
 
 Check the Flutter docs out to understand how Flutter loads images: [Adding assets and images](https://docs.flutter.dev/development/ui/assets-and-images#loading-images)
+___
+Add this line to your package's pubspec.yaml under the `dev_dependencies` section:
+
+```yaml
+dev_dependencies:
+  images_files_checker:
+```
+
+You should specify the version to avoid breaking changes
 
 ## Usage
+
 ```bash
-flutter pub run images_files_checker --path assets/images --unexpected-dir-is-an-error
+flutter pub run images_files_checker --path assets/images --fail-test-on-unexpected-dir --ignore ignore.png,ignore2.webp
 ```
 
 ### Output example:
@@ -36,13 +46,14 @@ dog.webp
 
 ## Options
 
-| Parameter   | default                    | mandatory | description                           |
-|-------------|----------------------------|-----------|---------------------------------------|
-| path        |                            | yes       | Assets image files directory          |
-| resolutions | 1.0x,1.5x,2.0x,3.0x,4.0x   | no        | Expected densities                    |
-| extensions  | jpeg,webp,png,gif,bmp,wbmp | no        | Image extensions that will be checked |
+| Parameter   | default                    | mandatory | description                               |
+|-------------|----------------------------|-----------|-------------------------------------------|
+| path        |                            | yes       | Assets image files directory              |
+| resolutions | 1.0x,1.5x,2.0x,3.0x,4.0x   | no        | Expected densities                        |
+| extensions  | jpeg,webp,png,gif,bmp,wbmp | no        | Image extensions that will be checked     |
+| ignore      |                            | no        | Files that should be ignored in the tests |
 
-| Flags                      | description                                                                      |
-|----------------------------|----------------------------------------------------------------------------------|
-| unexpected-dir-is-an-error | If a image is in a subdir that doesn't fallow the pattern `#.#x`, test will fail |
-| decoding-error-is-an-error | Images that failed to decode, test will fail                                     |
+| Flags                       | description                                                                      |
+|-----------------------------|----------------------------------------------------------------------------------|
+| fail-test-on-unexpected-dir | If a image is in a subdir that doesn't fallow the pattern `#.#x`, test will fail |
+| fail-test-on-decoding-error | Images that failed to decode, test will fail                                     |

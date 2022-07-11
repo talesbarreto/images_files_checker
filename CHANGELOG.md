@@ -1,3 +1,6 @@
+## 0.0.2
+- Add ignore files option
+
 ## 0.0.1+2
 
 - Add example

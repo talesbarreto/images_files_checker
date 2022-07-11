@@ -7,6 +7,7 @@ import 'package:images_files_checker/src/domain/analyser/exit_code.dart';
 import 'package:images_files_checker/src/domain/analyser/use_cases/execute_analyses.dart';
 import 'package:images_files_checker/src/domain/analyser/use_cases/get_error_message.dart';
 import 'package:images_files_checker/src/domain/assets_entries/models/asset_entries.dart';
+import 'package:images_files_checker/src/domain/assets_entries/use_cases/filter_files_by_name.dart';
 import 'package:images_files_checker/src/domain/assets_entries/use_cases/get_expected_densities.dart';
 import 'package:images_files_checker/src/domain/assets_entries/use_cases/retrieve_asset_entries.dart';
 import 'package:images_files_checker/src/domain/checkers/use_cases/is_file_supported.dart';
@@ -46,26 +47,36 @@ UserOptions _getOrFailUserOptions(List<String> arguments) {
 }
 
 Future<List<AssetEntry>> _getOrFailAssetEntries(UserOptions userOptions) async {
-  final files =
-      await ImageFilesRepositoryImpl().getImageFiles(userOptions.imagePath);
+  final imageRepo = ImageFilesRepositoryImpl();
+  final files = await imageRepo.getImageFiles(userOptions.imagePath);
   if (files is! ResultSuccess<List<File>>) {
     files as ResultError<List<File>>;
     print(files.message);
     exit(ExitCode.error);
   }
+  final filterFilesByName = FilterFilesByName();
+
   final retrieveAssetEntries = RetrieveAssetEntries(
-      IsFileSupported(), ImageMetadataRepositoryImpl.defaultImplementation());
-  return retrieveAssetEntries(userOptions: userOptions, files: files.data);
+    IsFileSupported(),
+    ImageMetadataRepositoryImpl.defaultImplementation(),
+  );
+
+  return retrieveAssetEntries(
+    userOptions: userOptions,
+    files: filterFilesByName(files.data, userOptions.ignoredFiles),
+  );
 }
 
 Future<void> main(List<String> arguments) async {
   final executeAnalyses = _getExecuteAnalyses();
-
   final userOptions = _getOrFailUserOptions(arguments);
-
   final assets = await _getOrFailAssetEntries(userOptions);
 
   int exitCode = await executeAnalyses(
-      userOptions: userOptions, assets: assets, log: print);
+    userOptions: userOptions,
+    assets: assets,
+    log: print,
+  );
+
   exit(exitCode);
 }

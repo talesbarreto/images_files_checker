@@ -31,6 +31,7 @@ void main() {
     supportedFiles: ["png"],
     decodingFailIsAnError: false,
     unexpectedSubDirIsAnError: false,
+    ignoredFiles: [],
   );
 
   test("Do not register errors if all densities files seams correct", () {
