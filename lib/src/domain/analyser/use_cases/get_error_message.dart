@@ -17,8 +17,7 @@ class GetErrorMessage {
             break;
           case ComparisonFail:
             error as ComparisonFail;
-            buffer.write(
-                "\n\t- Resolution (${error.targetFile.second}) for ${error.targetFile.first} is ");
+            buffer.write("\n\t- Resolution (${error.targetFile.second}) for ${error.targetFile.first} is ");
 
             switch (error.comparisonFailType) {
               case ComparisonFailType.smaller:
@@ -31,8 +30,7 @@ class GetErrorMessage {
                 buffer.write('equals to');
                 break;
             }
-            buffer.write(
-                " ${error.comparedFile.first} (${error.comparedFile.second})");
+            buffer.write(" ${error.comparedFile.first} (${error.comparedFile.second})");
             break;
           case ImageDecodeError:
             error as ImageDecodeError;

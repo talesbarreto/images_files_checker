@@ -24,9 +24,7 @@ class AssetDensity implements Comparable<AssetDensity> {
 
   @override
   bool operator ==(Object? other) {
-    return other is AssetDensity &&
-        other._wholeNumber == _wholeNumber &&
-        other._fractionalPart == _fractionalPart;
+    return other is AssetDensity && other._wholeNumber == _wholeNumber && other._fractionalPart == _fractionalPart;
   }
 
   @override

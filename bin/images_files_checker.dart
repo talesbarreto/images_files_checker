@@ -20,22 +20,18 @@ import 'package:images_files_checker/src/domain/user_options/repositories/user_o
 ExecuteAnalyses _getExecuteAnalyses() {
   final getErrorMessage = GetErrorMessage();
   final getExpectedDensities = GetExpectedDensities();
-  final registerMissingAssetFiles =
-      RegisterMissingAssetFiles(getExpectedDensities);
-  final registerInconsistenciesBetweenDensities =
-      RegisterInconsistenciesBetweenDensities(getExpectedDensities);
+  final registerMissingAssetFiles = RegisterMissingAssetFiles(getExpectedDensities);
+  final registerInconsistenciesBetweenDensities = RegisterInconsistenciesBetweenDensities(getExpectedDensities);
 
   return ExecuteAnalyses(
     registerMissingAssetFiles: registerMissingAssetFiles,
     getErrorMessage: getErrorMessage,
-    registerInconsistenciesBetweenDensities:
-        registerInconsistenciesBetweenDensities,
+    registerInconsistenciesBetweenDensities: registerInconsistenciesBetweenDensities,
   );
 }
 
 UserOptions _getOrFailUserOptions(List<String> arguments) {
-  final UserOptionsRepository argsRepository =
-      UserOptionsRepositoryImpl.defaultImplementation();
+  final UserOptionsRepository argsRepository = UserOptionsRepositoryImpl.defaultImplementation();
   final userOptions = argsRepository.getUserOptions(arguments);
   if (userOptions is ResultSuccess<UserOptions>) {
     return userOptions.data;

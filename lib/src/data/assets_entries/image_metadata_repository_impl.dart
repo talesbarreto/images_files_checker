@@ -25,14 +25,12 @@ class ImageMetadataRepositoryImpl implements ImageMetadataRepository {
     if (image == null) {
       return ResultError('Could not decode image file ${file.path}');
     }
-    return ResultSuccess(
-        ImageResolution(height: image.height, width: image.width));
+    return ResultSuccess(ImageResolution(height: image.height, width: image.width));
   }
 
   @override
   Result<AssetDensity> getImagePixelDensity(File file, String imagesPath) {
-    final pathSegments =
-        file.path.removePrefix(imagesPath).removePrefix("/").split("/");
+    final pathSegments = file.path.removePrefix(imagesPath).removePrefix("/").split("/");
     try {
       if (pathSegments.length > 1) {
         return ResultSuccess(AssetDensity.fromString(pathSegments.first));
