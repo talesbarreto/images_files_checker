@@ -1,3 +1,6 @@
+## 1.0.0
+- Upgrade dependencies
+
 ## 0.0.2
 - Add ignore files option
 
