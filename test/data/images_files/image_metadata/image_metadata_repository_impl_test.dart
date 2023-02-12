@@ -8,7 +8,7 @@ import 'package:image/image.dart' as image_lib;
 void main() {
   group("When getImageResolution() is invoked", () {
     test("return the expected ImageResolution", () async {
-      final image = image_lib.Image(300, 500);
+      final image = image_lib.Image(width: 300, height: 500);
       final repository = ImageMetadataRepositoryImpl((_) async => image);
 
       final result = await repository.getImageResolution(File("/"));
