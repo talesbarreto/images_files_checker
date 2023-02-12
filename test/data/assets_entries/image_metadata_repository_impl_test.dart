@@ -15,7 +15,7 @@ void main() {
     test("return the file resolution", () async {
       const filePath = "/hahaha/wow.png";
       File? decodedFile;
-      final decodedImage = image_lib.Image(1, 2);
+      final decodedImage = image_lib.Image(width: 1, height: 2);
 
       Future<image_lib.Image?> fakeDecoder(File file) async {
         decodedFile = file;

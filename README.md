@@ -26,7 +26,7 @@ flutter pub run images_files_checker --path assets/images --fail-test-on-unexpec
 ### Output example:
 ```
 cat.webp
-        - Resolution (61x60) for 2.0x is smaller than 1.5x (80x80)
+        - Resolution for 2.0x is smaller than 1.5x (61x60 vs 80x80)
 
 dog.webp
         - missing file for 1.5x

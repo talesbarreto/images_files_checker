@@ -19,9 +19,9 @@ import 'package:test/test.dart';
 import 'execute_analyses_test.mocks.dart';
 
 @GenerateMocks([], customMocks: [
-  MockSpec<RegisterMissingAssetFiles>(returnNullOnMissingStub: true),
-  MockSpec<RegisterInconsistenciesBetweenDensities>(returnNullOnMissingStub: true),
-  MockSpec<GetErrorMessage>(returnNullOnMissingStub: true),
+  MockSpec<RegisterMissingAssetFiles>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<RegisterInconsistenciesBetweenDensities>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<GetErrorMessage>(onMissingStub: OnMissingStub.returnDefault),
 ])
 void main() {
   group("When `ExecuteAnalyses()` is invoked", () {

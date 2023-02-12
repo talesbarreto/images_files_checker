@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 import 'register_missing_asset_files_test.mocks.dart';
 
 @GenerateMocks([], customMocks: [
-  MockSpec<GetExpectedDensities>(returnNullOnMissingStub: true),
+  MockSpec<GetExpectedDensities>(onMissingStub: OnMissingStub.returnDefault),
 ])
 void main() {
   const densities = [AssetDensity(1, 5), AssetDensity(2, 0)];
