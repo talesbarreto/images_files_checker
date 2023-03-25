@@ -21,11 +21,15 @@ class ImageMetadataRepositoryImpl implements ImageMetadataRepository {
 
   @override
   Future<Result<ImageResolution>> getImageResolution(File file) async {
-    final image = await decodeImage(file);
-    if (image == null) {
-      return ResultError('Could not decode image file ${file.path}');
+    try {
+      final image = await decodeImage(file);
+      if (image == null) {
+        return ResultError('Could not decode image file ${file.path}');
+      }
+      return ResultSuccess(ImageResolution(height: image.height, width: image.width));
+    } catch (e, s) {
+      return ResultError('Could not decode image file ${file.path}', e, s);
     }
-    return ResultSuccess(ImageResolution(height: image.height, width: image.width));
   }
 
   @override

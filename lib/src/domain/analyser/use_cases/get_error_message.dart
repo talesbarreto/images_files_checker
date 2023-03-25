@@ -9,6 +9,15 @@ class GetErrorMessage {
     final buffer = StringBuffer();
     if (assetEntry.errors.isNotEmpty) {
       buffer.write('\n${assetEntry.fileName}');
+
+      final decodeErrors = assetEntry.errors.whereType<ImageDecodeError>();
+      if (decodeErrors.isNotEmpty) {
+        for (final error in decodeErrors) {
+          buffer.write('\n\t- Could not decode ${error.filePath}\n${error.stackTrace}');
+        }
+        return buffer.toString();
+      }
+
       for (final error in assetEntry.errors) {
         switch (error.runtimeType) {
           case MissingFileError:
@@ -31,10 +40,6 @@ class GetErrorMessage {
                 break;
             }
             buffer.write(" ${error.comparedFile.first} (${error.targetFile.second} vs ${error.comparedFile.second})");
-            break;
-          case ImageDecodeError:
-            error as ImageDecodeError;
-            buffer.write('\n\t- ${error.message}');
             break;
           case UnexpectedSubDirError:
             error as UnexpectedSubDirError;

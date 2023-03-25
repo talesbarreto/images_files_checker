@@ -32,6 +32,14 @@ class ExecuteAnalyses {
 
     bool hasErrors = false;
     for (final entry in assets) {
+      if (entry.errors.whereType<ImageDecodeError>().isNotEmpty) {
+        if (userOptions.decodingFailIsAnError) {
+          hasErrors = true;
+        }
+        log(getErrorMessage(entry));
+        continue;
+      }
+
       final errorMessage = getErrorMessage(entry);
       if (errorMessage != null) {
         log(errorMessage);

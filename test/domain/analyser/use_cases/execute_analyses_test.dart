@@ -77,7 +77,7 @@ void main() {
       registerMissingAssetFiles: MockRegisterMissingAssetFiles(),
       registerInconsistenciesBetweenDensities: MockRegisterInconsistenciesBetweenDensities(),
     );
-    assets.first.errors.add(ImageDecodeError("", ""));
+    assets.first.errors.add(ImageDecodeError("", "", StackTrace.current));
 
     test("Return `ExitCode.noErrorsFounds` if `userOptions.decodingFailIsAnError` is false", () async {
       const userOptions = UserOptions(

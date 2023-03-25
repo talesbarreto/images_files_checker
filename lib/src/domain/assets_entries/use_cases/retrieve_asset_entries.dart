@@ -45,7 +45,13 @@ class RetrieveAssetEntries {
       if (resolution is ResultSuccess<ImageResolution>) {
         assetEntries.addDetectedDensity(file.fileName, imageDensity, resolution.data);
       } else if (resolution is ResultError) {
-        assetEntries.registerError(file.fileName, ImageDecodeError(file.fileName, (resolution as ResultError).message));
+        assetEntries.registerError(
+            file.fileName,
+            ImageDecodeError(
+              file.path,
+              (resolution as ResultError).error,
+              (resolution as ResultError).stackTrace,
+            ));
       }
     }
 
