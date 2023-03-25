@@ -1,3 +1,6 @@
+## 1.0.1
+- Fix checker crashing when `image` package throws an exception
+
 ## 1.0.0
 - Upgrade dependencies
 

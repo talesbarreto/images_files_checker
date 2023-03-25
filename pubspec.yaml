@@ -1,7 +1,7 @@
 name: images_files_checker
 description: A CLI tool that checks each image in the project and report missing files or incorrect image resolution.
 repository: https://github.com/talesbarreto/images_files_checker
-version: 1.0.0
+version: 1.0.1
 
 executables:
   images_files_checker:
