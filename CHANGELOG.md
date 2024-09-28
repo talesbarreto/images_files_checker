@@ -1,3 +1,7 @@
+## 1.0.3
+- Bump `image` dependency to `4.2.0` 
+- Fix `asset_density`s `==` nullability lint warning
+
 ## 1.0.2
 - Upgrade `args` to version `2.4.2`
 - Upgrade `image` to version `4.0.17`
